@@ -45,7 +45,7 @@ Ask short multiple-choice questions. Cover:
 - Captions: word-by-word with bold keywords (default), keyword pills, full subtitles, or none. Position: upper third (default).
 - Hook: strong big text + zoom in first 3 seconds (default for social), or none.
 - Pace: tight (cut every breath — best for TikTok) or natural.
-- Graphics: minimal, some motion cards, or heavy.
+- Graphics: some motion cards and callouts (default for lists and key points), or heavy.
 - Color: natural, warm, cool, black & white, or orange & teal.
 - Sound: voice only, light SFX, or SFX + quiet music bed.
 - Content type preference (optional): talking head, tutorial/code demo, storytelling, or product explainer.
@@ -61,8 +61,10 @@ The request approves the full local pipeline. Do not stop for approval between s
 3. From repo root: `node tools/transcribe.mjs kit/video-projects/<slug>/assets/raw.mp4` (add `--local` if no Groq key).
 4. Read `my-style.md` and `my-rules.md`. Rules beat style; style beats kit defaults.
 5. Read `kit/AGENTS.md`, then follow the kit skill `short-form-edit` for vertical/short videos or `edit-video` for long horizontal ones.
-   - Prioritize a strong hook in the first 3 seconds.
+   - Prioritize a strong hook in the first 3 seconds (big text + quick zoom).
    - Keep captions always on and readable.
+   - Add occasional zooms on key points and face reactions to keep energy up.
+   - When the user lists items or "fixes", turn them into notification-style callout cards or animated list overlays (one by one or grouped) so they pop on screen.
    - Use the user's footage. Extra clips the user calls B-roll are B-roll.
    - Use `my-sounds/` for audio. Synthesize simple effects with FFmpeg if empty. Never download copyrighted music or footage.
 6. Render a draft and copy it to `outbox/<slug>-v1.mp4`. Open it. Tell the user in 3–5 short bullets what you did, then ask for notes.
