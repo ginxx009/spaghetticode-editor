@@ -38,7 +38,7 @@ for (const [tool, flag, label] of [['git', '--version', 'Git'], ['ffmpeg', '-ver
 if (missing.length) {
   const hint = win
     ? 'winget install OpenJS.NodeJS.LTS Git.Git Gyan.FFmpeg   (then open a new terminal)'
-    : process.platform === 'darwin' ? 'brew install node git ffmpeg' : 'Use your package manager: node (22+), git, ffmpeg';
+    : 'brew install node git ffmpeg';
   fail(`missing ${[...new Set(missing)].join(', ')}.\nInstall with: ${hint}`);
 }
 console.log(`Node ${process.versions.node}, Git, FFmpeg: OK`);
@@ -70,7 +70,7 @@ for (const dir of ['inbox', 'outbox', 'my-sounds']) mkdirSync(join(root, dir), {
 if (!existsSync(demo)) run('npm', ['run', 'demo', '--silent'], kit);
 const rendered = join(demo, 'renders', 'demo.mp4');
 if (!existsSync(rendered) && !run('npx', ['hyperframes', 'render', '--quality', 'draft', '--output', 'renders/demo.mp4'], demo)) {
-  fail('the test render failed. Run `npx hyperframes doctor` inside kit/video-projects/demo to see why (usually Chrome).');
+  fail('the test render failed. Run `npx hyperframes doctor` inside kit/video-projects/demo to see why (usually the browser).');
 }
 copyFileSync(rendered, testVideo);
 console.log(`Test video: ${testVideo}`);
@@ -79,9 +79,47 @@ step('Transcription');
 if (!existsSync(join(root, '.env'))) copyFileSync(join(root, '.env.example'), join(root, '.env'));
 try { process.loadEnvFile(join(root, '.env')); } catch {}
 const groq = Boolean(process.env.GROQ_API_KEY);
-const localWhisper = Boolean(run('python', ['-c', 'import faster_whisper'], root, true));
-console.log(`Groq key in .env: ${groq ? 'yes' : 'no'}`);
-console.log(`Local faster-whisper: ${localWhisper ? 'yes' : 'no'}`);
+console.log(`Optional Groq key in .env: ${groq ? 'yes' : 'no (fine: local Whisper is set up below)'}`);
 
-console.log(`\nSETUP COMPLETE${groq || localWhisper ? '' : ' (transcription not configured yet)'}`);
-console.log(`Drop raw videos in ${resolve(root, 'inbox')} or drag one into your agent's chat and say "edit this".`);
+step('spaghettiCode Studio: local Whisper (Python)');
+const venvPy = join(root, '.venv', win ? 'Scripts/python.exe' : 'bin/python');
+let studioPy = existsSync(venvPy);
+if (!studioPy) {
+  const sysPy = (win ? ['py', 'python', 'python3'] : ['python3', 'python']).find((p) => run(p, ['-c', 'import sys; sys.exit(sys.version_info < (3, 9))'], root, true));
+  const pyHint = win ? 'winget install Python.Python.3.12' : 'brew install python';
+  if (!sysPy) console.log(`Python 3.9+ not found. Install it (${pyHint}) and run setup again.`);
+  else {
+    studioPy = run(sysPy, ['-m', 'venv', join(root, '.venv')]);
+    if (!studioPy) console.log('Could not create a Python virtual environment. Reinstall Python and run setup again.');
+  }
+}
+if (studioPy) {
+  console.log('Installing Python packages (first time downloads ~200 MB)...');
+  studioPy = run(venvPy, ['-m', 'pip', 'install', '--quiet', '--upgrade', 'pip']) && run(venvPy, ['-m', 'pip', 'install', '--quiet', '-r', join(root, 'app', 'requirements.txt')]);
+}
+console.log(`Studio Python: ${studioPy ? 'OK' : 'NOT READY'}`);
+
+step('spaghettiCode Studio: local AI (Ollama)');
+const { totalmem } = await import('node:os');
+const model = totalmem() >= 15 * 1024 ** 3 ? 'qwen3:14b' : 'qwen3:4b-instruct';
+let ollama = run('ollama', ['--version'], root, true);
+if (!ollama) {
+  console.log(`Ollama is not installed. Get it free at https://ollama.com/download (${process.platform === 'darwin' ? 'or: brew install ollama' : 'or: winget install Ollama.Ollama'}), then run setup again.`);
+} else {
+  if (!run('ollama', ['list'], root, true)) {
+    console.log('Starting Ollama...');
+    spawnSync(win ? 'cmd' : 'sh', win ? ['/c', 'start', '/b', 'ollama', 'serve'] : ['-c', 'ollama serve >/dev/null 2>&1 &']);
+    spawnSync(process.execPath, ['-e', 'setTimeout(()=>{},3000)']);
+  }
+  const have = spawnSync('ollama', ['list'], { encoding: 'utf8' }).stdout || '';
+  if (have.includes(model)) console.log(`AI model ${model}: already downloaded`);
+  else {
+    console.log(`Downloading AI model ${model} (${model === 'qwen3:14b' ? 'about 9 GB' : 'about 2.5 GB'}, one time)...`);
+    ollama = run('ollama', ['pull', model]);
+  }
+}
+console.log(`Studio AI: ${ollama ? `OK (${model})` : 'NOT READY'}`);
+
+console.log(`\nSETUP COMPLETE${studioPy && ollama ? '' : ' (see NOT READY above)'}`);
+console.log(`Studio: ${win ? 'double-click "Start Studio.bat"' : 'double-click "Start Studio.command"'} (or: node app/server.mjs), then open http://localhost:5757`);
+console.log(`Agent: drop raw videos in ${resolve(root, 'inbox')} or drag one into your agent's chat and say "edit this".`);

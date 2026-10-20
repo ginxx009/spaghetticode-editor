@@ -1,0 +1,17 @@
+{
+  "duration": 3.2,
+  "offset": 2.9,
+  "title": "[Invisible] ang vibe-coded website mo?",
+  "kicker": "{Ayusin natin.}",
+  "timing": {
+    "braces": 0.1,
+    "flicker": 0.62,
+    "fork": 0.3,
+    "forkLand": 0.8,
+    "rise": 0.9,
+    "title": 1.32,
+    "wordStep": 0.08,
+    "kicker": 1.98,
+    "fadeOut": 2.9
+  }
+}

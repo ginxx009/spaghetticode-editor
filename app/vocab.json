@@ -1,0 +1,14 @@
+{
+  "note": "Terms the speaker uses. Whisper gets them as a hint, and Auto edit fixes captions that mishear them. Add your own.",
+  "terms": [
+    "vibe-coded", "vibe coding", "AI", "API", "APIs", "SEO", "AEO", "UI", "UX", "QA", "CDN", "CI/CD", "DevOps",
+    "ChatGPT", "Claude", "Cursor", "Copilot", "Gemini", "Ollama", "LLM", "llms.txt", "prompt",
+    "Vercel", "Netlify", "Supabase", "PlanetScale", "Firebase", "RDS", "AWS", "GCP", "Azure", "CloudFront", "CloudWatch",
+    "GitHub", "GitHub Actions", "GitLab", "Docker", "Dockerfile", "Kubernetes", "Terraform", "Sentry", "Grafana", "Datadog",
+    "PostgreSQL", "MySQL", "MongoDB", "Redis", "Next.js", "React", "Node.js", "TypeScript", "JavaScript", "Python",
+    "Playwright", "Cypress", "Jest", "CORS", "OAuth", "JWT", "HTTPS", "DNS", "sitemap.xml", "robots.txt", "noindex",
+    "Google Search Console", "Bing Webmaster Tools", "schema markup", "canonical tags", "staging", "production", "localhost",
+    "deploy", "deployment", "infrastructure", "architecture", "backend", "frontend", "full-stack", "database", "migration",
+    "rate limiting", "load balancer", "caching", "monitoring", "logging", "backups", "budget alerts", "spaghettiCode"
+  ]
+}

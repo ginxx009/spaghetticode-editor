@@ -22,3 +22,6 @@ my-rules.md
 .DS_Store
 Thumbs.db
 __pycache__/
+
+# Local Python env
+.venv/

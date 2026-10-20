@@ -20,7 +20,14 @@ Default is vertical 9:16 short-form with a strong hook in the first 3 seconds an
 | `my-style.md` | Style preferences from setup. |
 | `my-rules.md` | Lasting rules learned from notes. |
 | `my-sounds/` | User-supplied music and sound effects. |
+| `templates/outro/` | spaghettiCode end card: animated logo + like/follow. Added to every edit. Holds the shared logo layers. |
+| `templates/opening/` | spaghettiCode opening: logo animation + title card (~3s). Added to every edit. |
+| `app/` | spaghettiCode Studio: local web app (`node app/server.mjs`, or double-click `Start Studio.command`, then http://localhost:5757). Upload → prepare → cut words in the transcript → cards → render, no agent needed. |
 | `kit/` | Editing engine (Herk Edit Kit). Never edit files inside it. |
+
+## spaghettiCode Studio (the app)
+
+The user's default way to edit is the Studio. Projects it creates live in `kit/video-projects/<slug>/` with an `edit.json` (`"app": true`) holding words, strikes, fixes, emphasis, highlights, title, cards and AI suggestions. Pipeline: `app/lib/prepare.py` → `cut.py` → `compose.mjs` (card types: checklist, status, chips, tip, callout) → `mix.py` → outro/opening templates → HyperFrames render → `outbox/`. AI suggestions come from local Ollama (`app/lib/suggest.mjs`, default `qwen3:14b`, thinking mode optional). When the user asks the agent for help on a Studio project, edit its `edit.json` or the app code instead of hand-building a new composition. New card types go in `compose.mjs` + `compose.css` and the Cards tab in `app/public/app.js`.
 
 `kit/` has its own `AGENTS.md` and skills. Read them when a step says so. Paths inside kit docs are relative to `kit/`.
 
@@ -67,7 +74,9 @@ The request approves the full local pipeline. Do not stop for approval between s
    - When the user lists items or "fixes", turn them into notification-style callout cards or animated list overlays (one by one or grouped) so they pop on screen.
    - Use the user's footage. Extra clips the user calls B-roll are B-roll.
    - Use `my-sounds/` for audio. Synthesize simple effects with FFmpeg if empty. Never download copyrighted music or footage.
-6. Render a draft and copy it to `outbox/<slug>-v1.mp4`. Open it. Tell the user in 3–5 short bullets what you did, then ask for notes.
+6. Add the outro after the last spoken word: `node templates/outro/add-outro.mjs kit/video-projects/<slug>` (optional `--cta "..."`, `--handle "@..."`). It mounts `compositions/sc-outro.html`, copies `assets/outro/`, and extends the root duration. Re-run it every time `index.html` is regenerated; it replaces its own block. Text and timing defaults live in `templates/outro/outro.config.json`. After changing the logo in `templates/outro/source/` or the timing, run `.venv/bin/python templates/outro/make-assets.py` to rebuild the layers and sound.
+7. Add the opening: suggest 3–6 catchy titles from the transcript and let the user pick, then run `node templates/opening/add-opening.mjs kit/video-projects/<slug> --title "[Invisible] ang vibe-coded website mo?" --kicker "{Ayusin natin.}"` (`[word]` pink, `{word}` cyan, lone `|` = line break). It shifts the whole edit later by `offset` (media, captions, overlays, GSAP timeline, outro) and crossfades into the first line. Re-run it after regenerating `index.html` or to change the title; it undoes its previous shift. Defaults live in `templates/opening/opening.config.json`. HyperFrames lint may flag one exit near a clip boundary because it does not see the runtime `shiftChildren`; check those frames in the render instead.
+8. Render a draft and copy it to `outbox/<slug>-v1.mp4`. Open it. Tell the user in 3–5 short bullets what you did, then ask for notes.
 
 ## Notes become rules
 

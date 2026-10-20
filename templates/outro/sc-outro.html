@@ -1,0 +1,129 @@
+<template id="sc-outro-template">
+  <div data-composition-id="sc-outro" data-start="0" data-duration="{{DUR}}" data-width="{{W}}" data-height="{{H}}">
+    <div class="sco-bg"></div>
+    <div class="sco-glow"></div>
+    <div class="sco-stage">
+      <div class="sco-brand">
+        <div class="sco-logo">{{PARTS}}</div>
+        <div class="sco-word">{{WORDMARK}}</div>
+        {{HANDLE}}
+      </div>
+      <div class="sco-cta">
+        <div class="sco-line">{{CTA}}</div>
+        <div class="sco-buttons">
+          <div class="sco-like">
+            <svg class="sco-heart-o" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.8 4.3 7.3C19.5 16.4 12 21 12 21z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            <svg class="sco-heart-f" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.8 4.3 7.3C19.5 16.4 12 21 12 21z" fill="#FA0487"/></svg>
+            <div class="sco-burst">{{BURST}}</div>
+            <div class="sco-label">{{LIKE}}</div>
+          </div>
+          <div class="sco-follow">
+            <div class="sco-f-off"><span class="sco-plus">+</span>{{FOLLOW}}</div>
+            <div class="sco-f-on"><span class="sco-check">✓</span>{{FOLLOWING}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sco-tap"><div class="sco-ripple"></div></div>
+
+    <style>
+      [data-composition-id="sc-outro"] { position: absolute; inset: 0; overflow: hidden; font-family: Montserrat, Arial, sans-serif; --u: {{U}}px; }
+      [data-composition-id="sc-outro"] .sco-bg { position: absolute; inset: 0; background: #050507; }
+      [data-composition-id="sc-outro"] .sco-glow { position: absolute; inset: 0; background: radial-gradient(circle at 30% 38%, rgba(250,4,135,.22), transparent 45%), radial-gradient(circle at 70% 42%, rgba(3,233,247,.2), transparent 45%); }
+      [data-composition-id="sc-outro"] .sco-stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(70 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-brand { display: flex; flex-direction: column; align-items: center; gap: calc(26 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-logo { position: relative; width: calc({{LOGO_W}} * var(--u)); height: calc({{LOGO_H}} * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-part { position: absolute; display: block; }
+      [data-composition-id="sc-outro"] .sco-part img { display: block; width: 100%; height: 100%; }
+      [data-composition-id="sc-outro"] .sco-part .sco-halo { position: absolute; inset: 0; filter: blur(calc(18 * var(--u))); opacity: .75; }
+      [data-composition-id="sc-outro"] .sco-word { font-weight: 800; font-size: calc(84 * var(--u)); letter-spacing: calc(-2 * var(--u)); line-height: 1; white-space: nowrap; }
+      [data-composition-id="sc-outro"] .sco-word span { display: inline-block; }
+      [data-composition-id="sc-outro"] .sco-word .p { color: #FF3FA4; text-shadow: 0 0 calc(22 * var(--u)) rgba(250,4,135,.75); }
+      [data-composition-id="sc-outro"] .sco-word .c { color: #2DF0FF; text-shadow: 0 0 calc(22 * var(--u)) rgba(3,233,247,.75); }
+      [data-composition-id="sc-outro"] .sco-handle { font-weight: 700; font-size: calc(36 * var(--u)); color: #B9BCC6; }
+      [data-composition-id="sc-outro"] .sco-cta { display: flex; flex-direction: column; align-items: center; gap: calc(36 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-line { font-weight: 800; font-size: calc(46 * var(--u)); color: #fff; text-align: center; max-width: calc(900 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-buttons { display: flex; align-items: center; gap: calc(44 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-like { position: relative; width: calc(150 * var(--u)); height: calc(150 * var(--u)); border-radius: 50%; background: rgba(255,255,255,.1); border: calc(3 * var(--u)) solid rgba(255,255,255,.25); }
+      [data-composition-id="sc-outro"] .sco-like svg { position: absolute; left: 22%; top: 24%; width: 56%; height: 56%; }
+      [data-composition-id="sc-outro"] .sco-heart-f { opacity: 0; }
+      [data-composition-id="sc-outro"] .sco-burst { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+      [data-composition-id="sc-outro"] .sco-burst i { position: absolute; left: calc(-9 * var(--u)); top: calc(-9 * var(--u)); width: calc(18 * var(--u)); height: calc(18 * var(--u)); border-radius: 50%; opacity: 0; }
+      [data-composition-id="sc-outro"] .sco-label { position: absolute; left: 50%; top: calc(100% + 12 * var(--u)); transform: translateX(-50%); font-weight: 700; font-size: calc(26 * var(--u)); color: #B9BCC6; }
+      [data-composition-id="sc-outro"] .sco-follow { position: relative; width: calc(400 * var(--u)); height: calc(120 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-f-off, [data-composition-id="sc-outro"] .sco-f-on { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: calc(14 * var(--u)); border-radius: calc(60 * var(--u)); font-weight: 800; font-size: calc(44 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-f-off { background: linear-gradient(90deg, #FA0487, #FF3FA4); color: #fff; box-shadow: 0 0 calc(40 * var(--u)) rgba(250,4,135,.45); }
+      [data-composition-id="sc-outro"] .sco-f-on { background: #16171C; color: #2DF0FF; border: calc(3 * var(--u)) solid rgba(3,233,247,.6); opacity: 0; }
+      [data-composition-id="sc-outro"] .sco-plus { font-size: calc(56 * var(--u)); line-height: 1; margin-top: calc(-6 * var(--u)); }
+      [data-composition-id="sc-outro"] .sco-tap { position: absolute; left: 0; top: 0; width: calc(96 * var(--u)); height: calc(96 * var(--u)); margin: calc(-48 * var(--u)) 0 0 calc(-48 * var(--u)); border-radius: 50%; background: rgba(255,255,255,.35); border: calc(4 * var(--u)) solid rgba(255,255,255,.85); opacity: 0; z-index: 5; }
+      [data-composition-id="sc-outro"] .sco-ripple { position: absolute; inset: calc(-4 * var(--u)); border-radius: 50%; border: calc(4 * var(--u)) solid #fff; opacity: 0; }
+    </style>
+
+    <script>
+      (() => {
+        const T = {{TIMING}};
+        const W = {{W}}, H = {{H}};
+        const root = '[data-composition-id="sc-outro"]';
+        const q = (s) => `${root} ${s}`;
+        const tl = gsap.timeline({ paused: true });
+
+        tl.from(q('.sco-bg'), { opacity: 0, duration: 0.25, ease: 'power1.out' }, 0);
+        tl.from(q('.sco-glow'), { opacity: 0, scale: 1.3, duration: 1.2, ease: 'power2.out' }, 0.1);
+
+        // Brand starts centred and large, then settles up to make room for the buttons.
+        tl.fromTo(q('.sco-brand'), { y: {{BRAND_Y}}, scale: 1.2 }, { y: 0, scale: 1, duration: 0.5, ease: 'power3.inOut' }, T.shrink);
+
+        // Braces slide in like they are being typed, then flicker on like neon.
+        tl.from(q('.p-brace-left'), { x: -W * 0.45, rotation: -25, opacity: 0, duration: 0.55, ease: 'back.out(1.6)' }, T.braces);
+        tl.from(q('.p-brace-right'), { x: W * 0.45, rotation: 25, opacity: 0, duration: 0.55, ease: 'back.out(1.6)' }, T.braces + 0.06);
+        [[0, 0.25], [0.05, 1], [0.1, 0.4], [0.16, 1], [0.21, 0.6], [0.25, 1]].forEach(([dt, o]) =>
+          tl.set([q('.p-brace-left'), q('.p-brace-right')], { opacity: o }, T.flicker + dt));
+
+        // Fork twirls down into the middle like it is winding spaghetti.
+        tl.from(q('.p-fork'), { y: -H * 0.35, rotation: -540, scale: 0.4, opacity: 0, duration: T.forkLand - T.fork, ease: 'power3.out' }, T.fork);
+        tl.fromTo(q('.p-fork'), { scaleY: 0.86, scaleX: 1.12 }, { scaleY: 1, scaleX: 1, duration: 0.35, ease: 'elastic.out(1.2, 0.4)' }, T.forkLand);
+        tl.to(q('.p-fork'), { rotation: 8, duration: 0.35, ease: 'sine.inOut', yoyo: true, repeat: 3 }, T.forkLand + 0.9);
+        tl.fromTo(q('.sco-halo'), { opacity: 0.4 }, { opacity: 1, duration: 0.3, ease: 'power2.out', yoyo: true, repeat: 1 }, T.forkLand);
+
+        // Wordmark pops in letter by letter.
+        tl.from(q('.sco-word span'), { y: 40, opacity: 0, scale: 0.6, duration: 0.32, ease: 'back.out(2.4)', stagger: 0.03 }, T.wordmark);
+        tl.from(q('.sco-handle'), { opacity: 0, y: 14, duration: 0.3, ease: 'power2.out' }, T.wordmark + 0.4);
+
+        // CTA and buttons.
+        tl.from(q('.sco-line'), { opacity: 0, y: 30, duration: 0.4, ease: 'power3.out' }, T.buttons - 0.1);
+        tl.from(q('.sco-like'), { scale: 0, duration: 0.42, ease: 'back.out(2.2)' }, T.buttons);
+        tl.from(q('.sco-follow'), { scale: 0, duration: 0.42, ease: 'back.out(2.2)' }, T.buttons + 0.1);
+
+        // Finger tap: like, then follow. Button centres are computed by add-outro.mjs from the CSS layout.
+        const stage = document.querySelector(root);
+        const like = {{LIKE_XY}}, follow = {{FOLLOW_XY}};
+        tl.set(q('.sco-tap'), { x: like.x + 160, y: like.y + 260, opacity: 0 }, 0);
+        tl.to(q('.sco-tap'), { opacity: 1, duration: 0.2 }, T.likeTap - 0.45);
+        tl.to(q('.sco-tap'), { x: like.x, y: like.y, duration: 0.4, ease: 'power2.inOut' }, T.likeTap - 0.45);
+        const press = (t) => {
+          tl.to(q('.sco-tap'), { scale: 0.78, duration: 0.08, ease: 'power2.in', yoyo: true, repeat: 1 }, t - 0.05);
+          tl.fromTo(q('.sco-ripple'), { scale: 1, opacity: 0.9 }, { scale: 2.4, opacity: 0, duration: 0.45, ease: 'power2.out' }, t);
+        };
+        press(T.likeTap);
+        tl.set(q('.sco-heart-f'), { opacity: 1 }, T.likeTap);
+        tl.set(q('.sco-heart-o'), { opacity: 0 }, T.likeTap);
+        tl.fromTo(q('.sco-like'), { scale: 1 }, { scale: 1.22, duration: 0.14, ease: 'power2.out', yoyo: true, repeat: 1 }, T.likeTap);
+        tl.to(q('.sco-like'), { backgroundColor: 'rgba(250,4,135,.18)', borderColor: 'rgba(250,4,135,.8)', duration: 0.2 }, T.likeTap);
+        stage.querySelectorAll('.sco-burst i').forEach((el, i, all) => {
+          const a = (i / all.length) * Math.PI * 2, r = 130 * {{U}};
+          tl.fromTo(el, { x: 0, y: 0, scale: 1, opacity: 1 }, { x: Math.cos(a) * r, y: Math.sin(a) * r, scale: 0.2, opacity: 0, duration: 0.55, ease: 'power3.out' }, T.likeTap + 0.02);
+        });
+        tl.to(q('.sco-tap'), { x: follow.x, y: follow.y, duration: 0.45, ease: 'power2.inOut' }, T.followTap - 0.55);
+        press(T.followTap);
+        tl.to(q('.sco-f-off'), { opacity: 0, duration: 0.15 }, T.followTap);
+        tl.to(q('.sco-f-on'), { opacity: 1, duration: 0.15 }, T.followTap);
+        tl.from(q('.sco-check'), { scale: 0, rotation: -60, duration: 0.35, ease: 'back.out(3)' }, T.followTap + 0.05);
+        tl.fromTo(q('.sco-follow'), { scale: 1 }, { scale: 0.92, duration: 0.09, ease: 'power2.in', yoyo: true, repeat: 1 }, T.followTap - 0.04);
+        tl.to(q('.sco-tap'), { opacity: 0, y: '+=60', duration: 0.3, ease: 'power2.in' }, T.followTap + 0.35);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines['sc-outro'] = tl;
+      })();
+    </script>
+  </div>
+</template>

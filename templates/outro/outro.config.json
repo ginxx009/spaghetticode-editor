@@ -1,0 +1,20 @@
+{
+  "duration": 4.6,
+  "overlap": 0.25,
+  "cta": "Like + follow para sa next tip!",
+  "handle": "",
+  "likeLabel": "Like",
+  "followLabel": "Follow",
+  "followingLabel": "Following",
+  "timing": {
+    "braces": 0.2,
+    "fork": 0.5,
+    "forkLand": 1.0,
+    "flicker": 0.85,
+    "wordmark": 1.1,
+    "shrink": 1.85,
+    "buttons": 2.5,
+    "likeTap": 3.1,
+    "followTap": 3.8
+  }
+}

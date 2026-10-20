@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>spaghettiCode Studio</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="p">spaghetti</span><span class="c">Code</span> Studio</div>
+  <div id="status" class="status"></div>
+</header>
+<main>
+  <aside id="sidebar">
+    <label id="drop" class="drop">
+      <input id="file" type="file" accept="video/*" hidden>
+      <b>+ New video</b><span>Drop a raw video here or click</span>
+    </label>
+    <label class="muted autochk"><input type="checkbox" id="autoUpload" checked> Auto edit after upload</label>
+    <div id="projects"></div>
+  </aside>
+
+  <section id="editor" class="hidden">
+    <div class="left">
+      <div class="player">
+        <video id="video" controls preload="auto"></video>
+        <div class="player-bar">
+          <label><input type="checkbox" id="skipCuts" checked> Preview cuts</label>
+          <span id="cutInfo"></span>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button data-act="cut" title="X">✂ Cut <kbd>X</kbd></button>
+        <button data-act="keep" title="K">Restore <kbd>K</kbd></button>
+        <button data-act="emph" title="E">★ Punch-in <kbd>E</kbd></button>
+        <button data-act="hl-teal" class="teal">Teal <kbd>1</kbd></button>
+        <button data-act="hl-red" class="red">Red <kbd>2</kbd></button>
+        <button data-act="hl-green" class="green">Green <kbd>3</kbd></button>
+        <button data-act="hl-none">No color <kbd>0</kbd></button>
+        <button data-act="fix">Fix word <kbd>F</kbd></button>
+      </div>
+      <div class="hint">Click a word to jump there. Shift-click to select a range. Struck words get cut. Orange underline = suggested cut.</div>
+      <div id="transcript" class="transcript"></div>
+    </div>
+
+    <div class="right">
+      <nav class="tabs">
+        <button data-tab="title" class="on">Title</button>
+        <button data-tab="cards">Cards</button>
+        <button data-tab="ai">AI suggest</button>
+        <button data-tab="render">Render</button>
+      </nav>
+
+      <div class="tab" id="tab-title">
+        <label>Title <small>[word] = pink, {word} = cyan, | = line break</small></label>
+        <input id="title" placeholder="[Invisible] ang vibe-coded website mo?">
+        <label>Kicker <small>optional, the boxed line under the title</small></label>
+        <input id="kicker" placeholder="{Ayusin natin.}">
+        <div id="titleSugs" class="sugs"></div>
+      </div>
+
+      <div class="tab hidden" id="tab-cards">
+        <div class="row">
+          <select id="newCard">
+            <option value="checklist">Checklist (notification cards + counter)</option>
+            <option value="status">Status card (rows that flip ✓/✗)</option>
+            <option value="chips">Chips (✓ / ✗ groups)</option>
+            <option value="tip">Tip card (steps that check off)</option>
+            <option value="callout">Callout (big text)</option>
+          </select>
+          <button id="addCard">+ Add at selected word</button>
+        </div>
+        <div id="cards"></div>
+      </div>
+
+      <div class="tab hidden" id="tab-ai">
+        <div class="row">
+          <select id="model"></select>
+          <button id="autoedit" class="primary">✨ Auto edit</button>
+        </div>
+        <p class="muted">Runs on your Mac (about 5 min). Fixes misheard words, cuts restarts, repeats and rambles, builds the checklist, hook callout, punch-ins and title ideas. Every decision is listed below with Undo.</p>
+        <div id="decisions"></div>
+        <details class="more"><summary>Suggest only (nothing applied)</summary>
+          <div class="row"><label class="muted"><input type="checkbox" id="think" checked style="width:auto"> Think harder</label><button id="suggest">Suggest</button></div>
+          <div id="aiOut"></div>
+        </details>
+      </div>
+
+      <div class="tab hidden" id="tab-render">
+        <div class="row">
+          <select id="quality"><option value="draft">Draft (fast)</option><option value="standard" selected>Standard (post this)</option></select>
+          <button id="render" class="primary">▶ Render</button>
+        </div>
+        <div id="qa"></div>
+        <div id="renders"></div>
+      </div>
+
+      <div id="job" class="job hidden"><div id="jobStage"></div><pre id="jobLog"></pre></div>
+    </div>
+  </section>
+
+  <section id="empty" class="empty">
+    <h2>Drop a raw video to start</h2>
+    <p>Color fix, transcription, dead-air removal, captions, opening and outro run on your Mac. You decide the cuts and cards, then hit Render.</p>
+  </section>
+</main>
+<script src="/static/app.js" type="module"></script>
+</body>
+</html>
