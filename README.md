@@ -230,6 +230,10 @@ The Studio is the free, no-agent way. If you use an AI coding agent (Cursor, Cla
 | `kit/` | The editing engine, downloaded by setup (don't edit) |
 | `setup.mjs` | One-time setup, safe to re-run |
 
+## Contributing
+
+Want to improve it? **Fork** this repo, make your changes on a branch in your fork, and open a **pull request**. Direct pushes to `main` are blocked: every change is reviewed and approved by the maintainer before it's merged.
+
 ## Credits and licenses
 
 - Editing engine: [Herk Edit Kit](https://github.com/nateherkai/herk-edit-kit) by Nate Herk — free for personal and commercial videos (downloaded by setup, not included here).
